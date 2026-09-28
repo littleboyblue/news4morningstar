@@ -1,15 +1,31 @@
-# Python
+# ===== 密钥与凭证（绝不提交）=====
+.env
+.env.*
+*.local
+auth.json
+*.pem
+*.key
+*.pfx
+*.p12
+secrets*.json
+*credentials*
+
+# ===== Python =====
 .venv/
 __pycache__/
 *.pyc
 
-# 运行期文件（power_news.db 本身需要提交，供 Actions 增量抓取）
+# ===== 运行期文件 =====
+# （data/power_news.db 本身需要提交，供 Actions 增量抓取）
+.server.pid
 data/*.db-shm
 data/*.db-wal
 data/server.log
 server.log
 *.log
 
-# 工具与系统
+# ===== 工具与系统 =====
 .pi/
 .DS_Store
+.idea/
+.vscode/
