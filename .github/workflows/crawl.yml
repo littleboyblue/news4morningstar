@@ -1,0 +1,53 @@
+name: 定时抓取并发布
+
+on:
+  schedule:
+    # 每天北京时间 07:00（UTC 23:00）抓取一次；GitHub 排队可能有数分钟延迟
+    - cron: '0 23 * * *'
+  workflow_dispatch:   # 允许在 GitHub 页面手动触发
+
+permissions:
+  contents: write
+
+concurrency:
+  group: crawl
+  cancel-in-progress: false
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: 安装依赖
+        run: pip install -r requirements.txt
+
+      - name: 抓取资讯（LLM 分类，无 Key 时自动回退关键词分类）
+        env:
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          CLASSIFY_MODE: llm
+        run: |
+          python -c "
+          import crawler, json
+          print(json.dumps(crawler.run_crawl(trigger='schedule'), ensure_ascii=False, indent=2))
+          "
+
+      - name: 导出静态站点
+        run: python export_static.py
+
+      - name: 提交数据与静态产物
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/power_news.db public/
+          if git diff --cached --quiet; then
+            echo "无新增内容，跳过提交"
+          else
+            git commit -m "chore: 定时抓取 $(date -u +'%Y-%m-%d %H:%M') UTC"
+            git push
+          fi

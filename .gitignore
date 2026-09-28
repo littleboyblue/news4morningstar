@@ -1,0 +1,15 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# 运行期文件（power_news.db 本身需要提交，供 Actions 增量抓取）
+data/*.db-shm
+data/*.db-wal
+data/server.log
+server.log
+*.log
+
+# 工具与系统
+.pi/
+.DS_Store

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>⚡</text></svg>">
+<title>电力行业重点资讯聚合平台</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <div>
+      <h1>电力行业重点资讯聚合平台</h1>
+      <p class="subtitle" id="lastCrawl">数据来源：13 家政府/监管机构网站</p>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="topbar-stat">📚 已收录 <b id="totalCount">0</b> 条 · ⭐ 高价值 <b id="starCount">0</b></div>
+  </div>
+</header>
+
+<div id="toast" class="toast hidden"></div>
+
+<div class="layout">
+  <aside class="sidebar">
+    <h3>📅 按日期查看</h3>
+    <div class="calendar" id="calendar">
+      <div class="cal-head">
+        <button id="calPrev" title="上一月">‹</button>
+        <span id="calTitle"></span>
+        <button id="calNext" title="下一月">›</button>
+      </div>
+      <div class="cal-grid cal-week">
+        <span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span>
+      </div>
+      <div class="cal-grid" id="calDays"></div>
+      <button id="clearDate" class="btn-clear" title="清除日期过滤">清除日期过滤</button>
+    </div>
+    <h3>📂 分类</h3>
+    <ul id="categoryList" class="filter-list"></ul>
+    <h3>🏛️ 来源</h3>
+    <ul id="sourceList" class="filter-list"></ul>
+  </aside>
+
+  <main class="main">
+    <div class="toolbar">
+      <input id="searchInput" type="search" placeholder="搜索标题/摘要关键词…">
+      <input id="dateFrom" type="date" title="开始日期">
+      <span>—</span>
+      <input id="dateTo" type="date" title="结束日期">
+      <button id="searchBtn" class="btn-secondary">搜索</button>
+      <label class="star-toggle"><input type="checkbox" id="starOnly"> ⭐ 只看高指导价值</label>
+    </div>
+    <div id="articleList" class="article-list"></div>
+    <div id="emptyState" class="empty hidden">
+      <p>暂无符合条件的资讯。</p>
+    </div>
+    <div id="pagination" class="pagination"></div>
+  </main>
+</div>
+
+<!-- 详情弹窗 -->
+<div id="modal" class="modal hidden">
+  <div class="modal-mask" onclick="closeModal()"></div>
+  <div class="modal-body">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-scroll">
+      <h2 id="mTitle"></h2>
+      <div class="m-meta" id="mMeta"></div>
+      <div class="m-guidance" id="mGuidance"></div>
+      <div class="m-summary" id="mSummary"></div>
+      <div class="m-content" id="mContent"></div>
+      <div class="m-attach" id="mAttach"></div>
+    </div>
+    <div class="modal-footer">
+      <a id="mLink" class="btn-primary m-link" target="_blank" rel="noopener">查看原文 ↗</a>
+    </div>
+  </div>
+</div>
+
+<script src="./app.js"></script>
+</body>
+</html>
