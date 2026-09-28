@@ -55,7 +55,7 @@ Flask 模式下页面同样读取 `public/data/` 的静态导出（需先运行�
 ## 本地开发环境准备
 
 ```bash
-cd /Users/stan/program/Code/power_news
+cd /Users/stan/program/Code/news4morningstar
 
 # 首次运行才需要：创建虚拟环境 + 安装依赖
 python3 -m venv .venv
@@ -76,7 +76,7 @@ lsof -ti:12333 | xargs kill
 ## 项目结构
 
 ```
-power_news/
+news4morningstar/
 ├── app.py            # Flask 服务（本地调试：API + 手动触发抓取 + 静态预览）
 ├── crawler.py        # 爬虫引擎（站点配置、列表/详情解析、抓取状态）
 ├── classifier.py     # 关键词分类器 + 摘要生成
